@@ -1,0 +1,54 @@
+{
+  "schema": "agent-experiment-lab.scenario/1",
+  "label": "private-direct-reply",
+  "participants": {
+    "alex": {
+      "label": "Alex (simulation)",
+      "kind": "simulated_human",
+      "role_instructions": "Play Alex, a fictional product planner. Ask what users need and propose one concrete option. Do not imitate any real person or invent another participant's replies."
+    },
+    "lead": {
+      "label": "Workshop Lead",
+      "kind": "support_agent",
+      "role_instructions": "You help clarify decisions, ownership and next steps. Distinguish suggestions from accepted commitments. You do not speak for Alex, Robin, Casey or other agents."
+    }
+  },
+  "rooms": {
+    "room": {
+      "members": [
+        "alex",
+        "lead"
+      ],
+      "type": "direct"
+    }
+  },
+  "steps": [
+    {
+      "action": "cue",
+      "room": "room",
+      "text": "All inputs below are fictional operator-authored context, not real statements or new authority from the named people. This is private lab work. Do not send messages outside this experience, change files, inspect private workspaces or use network tools. The needed facts are supplied; produce any requested artifact as text in this conversation. Context fixture messages are setup; respond to their conversational meaning. Only actual ACP outputs in this run count as agent behavior."
+    },
+    {
+      "action": "message",
+      "room": "room",
+      "speaker": "alex",
+      "text": "Hey, I have about half an hour before my next meeting. Can you help me choose between polishing the ownership card and starting the automatic parser? We have one manual example and no one has used it for real yet.",
+      "provenance": "operator_authored_fixture"
+    },
+    {
+      "action": "round",
+      "room": "room",
+      "participants": [
+        "lead"
+      ],
+      "max_words": 120
+    }
+  ],
+  "seed": 47,
+  "limits": {
+    "turn_seconds": 150,
+    "max_turns": 20,
+    "max_seconds": 600,
+    "history_characters": 24000
+  }
+}

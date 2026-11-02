@@ -1,0 +1,129 @@
+{
+  "schema": "agent-experiment-lab.attention-suite/1",
+  "label": "Fresh participation holdouts: distinct requests, pause, stale status and one reply",
+  "provenance": "New fictional cases authored and frozen before observing model output. Expected actions are operator hypotheses, not actual human ratings. Same installed agents may retain memory outside this client.",
+  "participant_order": "rotate",
+  "conditions": {
+    "simultaneous": {
+      "policy": "selective",
+      "scheduling": "simultaneous"
+    },
+    "staggered": {
+      "policy": "selective",
+      "scheduling": "staggered"
+    },
+    "recheck": {
+      "policy": "selective",
+      "scheduling": "recheck"
+    }
+  },
+  "cases": [
+    {
+      "id": "holdout-two-distinct-requests",
+      "split": "held_out",
+      "scenario": "holdout-two-distinct-requests.json",
+      "expectations": [
+        {
+          "step": 2,
+          "participant": "lead",
+          "expected": "pass",
+          "category": "holdout-two-distinct-requests"
+        },
+        {
+          "step": 2,
+          "participant": "builder",
+          "expected": "speak",
+          "category": "holdout-two-distinct-requests"
+        },
+        {
+          "step": 2,
+          "participant": "reviewer",
+          "expected": "speak",
+          "category": "holdout-two-distinct-requests"
+        }
+      ]
+    },
+    {
+      "id": "holdout-thinking-aloud",
+      "split": "held_out",
+      "scenario": "holdout-thinking-aloud.json",
+      "expectations": [
+        {
+          "step": 2,
+          "participant": "lead",
+          "expected": "pass",
+          "category": "holdout-thinking-aloud"
+        },
+        {
+          "step": 2,
+          "participant": "builder",
+          "expected": "pass",
+          "category": "holdout-thinking-aloud"
+        },
+        {
+          "step": 2,
+          "participant": "reviewer",
+          "expected": "pass",
+          "category": "holdout-thinking-aloud"
+        }
+      ]
+    },
+    {
+      "id": "holdout-correct-stale-status",
+      "split": "held_out",
+      "scenario": "holdout-correct-stale-status.json",
+      "expectations": [
+        {
+          "step": 2,
+          "participant": "lead",
+          "expected": "pass",
+          "category": "holdout-correct-stale-status"
+        },
+        {
+          "step": 2,
+          "participant": "builder",
+          "expected": "speak",
+          "category": "holdout-correct-stale-status"
+        },
+        {
+          "step": 2,
+          "participant": "reviewer",
+          "expected": "pass",
+          "category": "holdout-correct-stale-status"
+        }
+      ]
+    },
+    {
+      "id": "holdout-factual-single-reply",
+      "split": "held_out",
+      "scenario": "holdout-factual-single-reply.json",
+      "expectations": [
+        {
+          "step": 2,
+          "participant": "lead",
+          "expected": "optional",
+          "category": "holdout-factual-single-reply"
+        },
+        {
+          "step": 2,
+          "participant": "builder",
+          "expected": "optional",
+          "category": "holdout-factual-single-reply"
+        },
+        {
+          "step": 2,
+          "participant": "reviewer",
+          "expected": "optional",
+          "category": "holdout-factual-single-reply"
+        }
+      ],
+      "response_windows": [
+        {
+          "step": 2,
+          "min_speakers": 1,
+          "max_speakers": 1
+        }
+      ]
+    }
+  ]
+}

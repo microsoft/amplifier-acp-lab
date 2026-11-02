@@ -1,0 +1,39 @@
+{
+  "schema": "agent-experiment-lab.bindings/1",
+  "participants": {
+    "alex": {
+      "command": [
+        "/absolute/path/to/acp-bridge",
+        "--url",
+        "https://agent.example/acp",
+        "--token-file",
+        "/private/alex-acp-token"
+      ],
+      "cwd": "/absolute/agent/workspace"
+    },
+    "robin": {
+      "command": [
+        "/absolute/path/to/robin-acp"
+      ],
+      "cwd": "/absolute/agent/workspace"
+    },
+    "casey": {
+      "command": [
+        "/absolute/path/to/casey-acp"
+      ],
+      "cwd": "/absolute/agent/workspace"
+    },
+    "builder": {
+      "command": [
+        "/absolute/path/to/builder-acp"
+      ],
+      "cwd": "/absolute/agent/workspace"
+    },
+    "reviewer": {
+      "command": [
+        "/absolute/path/to/reviewer-acp"
+      ],
+      "cwd": "/absolute/agent/workspace"
+    }
+  }
+}

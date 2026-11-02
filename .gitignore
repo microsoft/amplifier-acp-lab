@@ -1,0 +1,17 @@
+__pycache__/
+*.pyc
+*.egg-info/
+.venv/
+private/
+runs/
+dist/
+build/
+
+# Local installations and publication review material
+private/
+.env
+.env.*
+!.env.example
+*.sqlite
+*.sqlite3
+*.db

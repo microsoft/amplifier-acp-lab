@@ -1,0 +1,339 @@
+{
+  "schema": "agent-experiment-lab.attention-suite/1",
+  "label": "Human collaboration attention suite v1",
+  "provenance": "Authored fictional cases based on product tensions; no literal meeting excerpts and no claims of human approval. Calibration and held-out cases are frozen before model outputs are observed.",
+  "conditions": {
+    "baseline": {
+      "policy": "baseline",
+      "scheduling": "simultaneous"
+    },
+    "selective": {
+      "policy": "selective",
+      "scheduling": "simultaneous",
+      "ambient_threshold": "material",
+      "duplicate_window": 8,
+      "direct_reply": true
+    },
+    "selective-staggered": {
+      "policy": "selective",
+      "scheduling": "staggered",
+      "ambient_threshold": "material",
+      "duplicate_window": 8,
+      "direct_reply": true
+    }
+  },
+  "cases": [
+    {
+      "id": "calibration-human-brainstorm",
+      "split": "calibration",
+      "scenario": "calibration-human-brainstorm.json",
+      "expectations": [
+        {
+          "step": 2,
+          "participant": "alex",
+          "expected": "optional",
+          "category": "human_brainstorm"
+        },
+        {
+          "step": 2,
+          "participant": "robin",
+          "expected": "optional",
+          "category": "human_brainstorm"
+        },
+        {
+          "step": 2,
+          "participant": "casey",
+          "expected": "optional",
+          "category": "human_brainstorm"
+        }
+      ]
+    },
+    {
+      "id": "calibration-covered",
+      "split": "calibration",
+      "scenario": "calibration-covered.json",
+      "expectations": [
+        {
+          "step": 4,
+          "participant": "lead",
+          "expected": "pass",
+          "category": "covered_answer"
+        },
+        {
+          "step": 4,
+          "participant": "builder",
+          "expected": "pass",
+          "category": "covered_answer"
+        },
+        {
+          "step": 4,
+          "participant": "reviewer",
+          "expected": "pass",
+          "category": "covered_answer"
+        }
+      ]
+    },
+    {
+      "id": "private-direct-reply",
+      "split": "held_out",
+      "scenario": "private-direct-reply.json",
+      "expectations": [
+        {
+          "step": 2,
+          "participant": "lead",
+          "expected": "speak",
+          "category": "direct_reply"
+        }
+      ]
+    },
+    {
+      "id": "human-to-human",
+      "split": "held_out",
+      "scenario": "human-to-human.json",
+      "expectations": [
+        {
+          "step": 3,
+          "participant": "casey",
+          "expected": "speak",
+          "category": "human_direct_question"
+        },
+        {
+          "step": 3,
+          "participant": "lead",
+          "expected": "pass",
+          "category": "human_back_and_forth"
+        },
+        {
+          "step": 3,
+          "participant": "builder",
+          "expected": "pass",
+          "category": "human_back_and_forth"
+        },
+        {
+          "step": 3,
+          "participant": "reviewer",
+          "expected": "pass",
+          "category": "human_back_and_forth"
+        }
+      ]
+    },
+    {
+      "id": "named-agent-request",
+      "split": "held_out",
+      "scenario": "named-agent-request.json",
+      "expectations": [
+        {
+          "step": 3,
+          "participant": "builder",
+          "expected": "speak",
+          "category": "direct_mention"
+        },
+        {
+          "step": 3,
+          "participant": "lead",
+          "expected": "pass",
+          "category": "named_peer_request"
+        },
+        {
+          "step": 3,
+          "participant": "reviewer",
+          "expected": "pass",
+          "category": "named_peer_request"
+        }
+      ]
+    },
+    {
+      "id": "already-covered",
+      "split": "held_out",
+      "scenario": "already-covered.json",
+      "expectations": [
+        {
+          "step": 4,
+          "participant": "robin",
+          "expected": "speak",
+          "category": "human_direct_question"
+        },
+        {
+          "step": 4,
+          "participant": "lead",
+          "expected": "pass",
+          "category": "duplicate_answer"
+        },
+        {
+          "step": 4,
+          "participant": "builder",
+          "expected": "pass",
+          "category": "duplicate_answer"
+        },
+        {
+          "step": 4,
+          "participant": "reviewer",
+          "expected": "pass",
+          "category": "duplicate_answer"
+        }
+      ]
+    },
+    {
+      "id": "accepted-ownership",
+      "split": "held_out",
+      "scenario": "accepted-ownership.json",
+      "expectations": [
+        {
+          "step": 4,
+          "participant": "lead",
+          "expected": "speak",
+          "category": "ownership_offer"
+        },
+        {
+          "step": 4,
+          "participant": "builder",
+          "expected": "pass",
+          "category": "avoid_unassigned_work"
+        },
+        {
+          "step": 4,
+          "participant": "reviewer",
+          "expected": "pass",
+          "category": "avoid_unassigned_work"
+        }
+      ]
+    },
+    {
+      "id": "unaddressed-material-blocker",
+      "split": "held_out",
+      "scenario": "unaddressed-material-blocker.json",
+      "expectations": [
+        {
+          "step": 3,
+          "participant": "reviewer",
+          "expected": "speak",
+          "category": "unaddressed_blocker"
+        },
+        {
+          "step": 3,
+          "participant": "lead",
+          "expected": "pass",
+          "category": "no_new_information"
+        },
+        {
+          "step": 3,
+          "participant": "builder",
+          "expected": "pass",
+          "category": "no_new_information"
+        }
+      ]
+    },
+    {
+      "id": "one-answer-is-enough",
+      "split": "held_out",
+      "scenario": "one-answer-is-enough.json",
+      "expectations": [
+        {
+          "step": 2,
+          "participant": "lead",
+          "expected": "optional",
+          "category": "open_question"
+        },
+        {
+          "step": 2,
+          "participant": "builder",
+          "expected": "optional",
+          "category": "open_question"
+        },
+        {
+          "step": 2,
+          "participant": "reviewer",
+          "expected": "optional",
+          "category": "open_question"
+        }
+      ],
+      "response_windows": [
+        {
+          "step": 2,
+          "min_speakers": 1,
+          "max_speakers": 1
+        }
+      ]
+    },
+    {
+      "id": "interrupted-and-paused",
+      "split": "held_out",
+      "scenario": "interrupted-and-paused.json",
+      "expectations": [
+        {
+          "step": 2,
+          "participant": "builder",
+          "expected": "cancelled",
+          "category": "interruption"
+        },
+        {
+          "step": 3,
+          "participant": "casey",
+          "expected": "speak",
+          "category": "redirected_request"
+        },
+        {
+          "step": 3,
+          "participant": "builder",
+          "expected": "pass",
+          "category": "pause_respected"
+        },
+        {
+          "step": 3,
+          "participant": "reviewer",
+          "expected": "pass",
+          "category": "pause_respected"
+        }
+      ]
+    },
+    {
+      "id": "deliver-and-review",
+      "split": "held_out",
+      "scenario": "deliver-and-review.json",
+      "expectations": [
+        {
+          "step": 4,
+          "participant": "builder",
+          "expected": "speak",
+          "category": "assigned_artifact"
+        },
+        {
+          "step": 4,
+          "participant": "lead",
+          "expected": "pass",
+          "category": "accepted_builder_ownership"
+        },
+        {
+          "step": 4,
+          "participant": "reviewer",
+          "expected": "pass",
+          "category": "wait_for_artifact"
+        },
+        {
+          "step": 6,
+          "participant": "reviewer",
+          "expected": "speak",
+          "category": "assigned_review"
+        },
+        {
+          "step": 6,
+          "participant": "builder",
+          "expected": "pass",
+          "category": "accepted_reviewer_ownership"
+        },
+        {
+          "step": 6,
+          "participant": "lead",
+          "expected": "pass",
+          "category": "accepted_reviewer_ownership"
+        },
+        {
+          "step": 7,
+          "participant": "alex",
+          "expected": "optional",
+          "category": "human_followup"
+        }
+      ]
+    }
+  ]
+}

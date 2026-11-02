@@ -1,0 +1,21 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+license = {file = "LICENSE"}
+readme = "README.md"
+name = "agent-experiment-lab"
+version = "0.3.2"
+description = "Repeatable collaboration experiments through ordinary ACP endpoints"
+requires-python = ">=3.11"
+dependencies = []
+
+[project.scripts]
+agent-experiment-lab = "experiment_lab.cli:main"
+
+[tool.setuptools.packages.find]
+include = ["experiment_lab*"]
+
+[project.urls]
+Repository = "https://github.com/microsoft/amplifier-acp-lab"

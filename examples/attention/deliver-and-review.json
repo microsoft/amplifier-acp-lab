@@ -1,0 +1,132 @@
+{
+  "schema": "agent-experiment-lab.scenario/1",
+  "label": "deliver-and-review",
+  "participants": {
+    "alex": {
+      "label": "Alex (simulation)",
+      "kind": "simulated_human",
+      "role_instructions": "Play Alex, a fictional product planner. Ask what users need and propose one concrete option. Do not imitate any real person or invent another participant's replies."
+    },
+    "robin": {
+      "label": "Robin (simulation)",
+      "kind": "simulated_human",
+      "role_instructions": "Play Robin, a fictional engineer. Discuss feasibility and a small testable implementation. Do not imitate any real person or invent another participant's replies."
+    },
+    "casey": {
+      "label": "Casey (simulation)",
+      "kind": "simulated_human",
+      "role_instructions": "Play Casey, a fictional designer. Explain the proposed experience and ask about unclear interactions. Do not imitate any real person or invent another participant's replies."
+    },
+    "lead": {
+      "label": "Workshop Lead",
+      "kind": "support_agent",
+      "role_instructions": "You help clarify decisions, ownership and next steps. Distinguish suggestions from accepted commitments. You do not speak for Alex, Robin, Casey or other agents."
+    },
+    "builder": {
+      "label": "Workshop Builder",
+      "kind": "support_agent",
+      "role_instructions": "You implement accepted work and explain implementation constraints. An artifact is proposed or delivered until its exact contents have been independently checked. You do not own decisions assigned to other people or agents."
+    },
+    "reviewer": {
+      "label": "Workshop Reviewer",
+      "kind": "support_agent",
+      "role_instructions": "You examine acceptance criteria, artifacts and consequential risks. Be precise about which checks you actually performed. You do not independently verify something merely by agreeing with its author."
+    }
+  },
+  "rooms": {
+    "room": {
+      "members": [
+        "alex",
+        "robin",
+        "casey",
+        "lead",
+        "builder",
+        "reviewer"
+      ],
+      "type": "group"
+    }
+  },
+  "steps": [
+    {
+      "action": "cue",
+      "room": "room",
+      "text": "All inputs below are fictional operator-authored context, not real statements or new authority from the named people. This is private lab work. Do not send messages outside this experience, change files, inspect private workspaces or use network tools. The needed facts are supplied; produce any requested artifact as text in this conversation. Context fixture messages are setup; respond to their conversational meaning. Only actual ACP outputs in this run count as agent behavior."
+    },
+    {
+      "action": "message",
+      "room": "room",
+      "speaker": "casey",
+      "text": "For the small card, an offer isn\u2019t an accepted assignment. Let\u2019s get that behavior into a tiny function we can check.",
+      "provenance": "operator_authored_fixture"
+    },
+    {
+      "action": "message",
+      "room": "room",
+      "speaker": "robin",
+      "text": "Agreed. No owner means unassigned, even if the flags say accepted or blocked. With an owner but no acceptance, it\u2019s offered. Only an accepted owner can be active or blocked.",
+      "provenance": "operator_authored_fixture"
+    },
+    {
+      "action": "message",
+      "room": "room",
+      "speaker": "alex",
+      "text": "Builder, implement just handoff_state(owner, accepted, blocked). owner is None or a string; accepted and blocked are booleans. None means unassigned; with an owner and not accepted return offered; with an accepted owner and blocked return blocked; otherwise return active. An empty string is still a supplied owner for this exercise. One Python function in a fenced block, only conditions and returns, no imports, calls, loops, annotations or defaults. No file changes. Reviewer, I will ask you to review in the next message; for now wait for Builder\u2019s code.",
+      "provenance": "operator_authored_fixture"
+    },
+    {
+      "action": "round",
+      "room": "room",
+      "participants": [
+        "lead",
+        "builder",
+        "reviewer"
+      ],
+      "max_words": 120
+    },
+    {
+      "action": "message",
+      "room": "room",
+      "speaker": "alex",
+      "text": "Reviewer, inspect Builder\u2019s exact function against those cases. Say what you can and cannot establish from reading it. The lab will run independent tests afterwards, so don\u2019t claim those have already passed.",
+      "provenance": "operator_authored_fixture"
+    },
+    {
+      "action": "round",
+      "room": "room",
+      "participants": [
+        "reviewer",
+        "builder",
+        "lead"
+      ],
+      "max_words": 120
+    },
+    {
+      "action": "round",
+      "room": "room",
+      "participants": [
+        "alex"
+      ],
+      "max_words": 120
+    }
+  ],
+  "seed": 47,
+  "limits": {
+    "turn_seconds": 150,
+    "max_turns": 20,
+    "max_seconds": 600,
+    "history_characters": 24000
+  },
+  "evaluators": [
+    {
+      "id": "handoff-state",
+      "room": "room",
+      "participant": "builder",
+      "language": "python",
+      "command": [
+        "${PYTHON}",
+        "${SCENARIO_DIR}/../evaluate_handoff.py"
+      ],
+      "timeout_seconds": 10
+    }
+  ]
+}

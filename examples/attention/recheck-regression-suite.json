@@ -1,0 +1,148 @@
+{
+  "schema": "agent-experiment-lab.attention-suite/1",
+  "label": "Repeated publication recheck regressions",
+  "provenance": "Previously observed fictional cases reused for counterbalanced regression testing; not fresh holdouts and not actual human feedback.",
+  "conditions": {
+    "simultaneous": {
+      "policy": "selective",
+      "scheduling": "simultaneous"
+    },
+    "staggered": {
+      "policy": "selective",
+      "scheduling": "staggered"
+    },
+    "recheck": {
+      "policy": "selective",
+      "scheduling": "recheck"
+    }
+  },
+  "cases": [
+    {
+      "id": "private-direct-reply",
+      "split": "calibration",
+      "scenario": "private-direct-reply.json",
+      "expectations": [
+        {
+          "step": 2,
+          "participant": "lead",
+          "expected": "speak",
+          "category": "direct_reply"
+        }
+      ]
+    },
+    {
+      "id": "accepted-ownership",
+      "split": "calibration",
+      "scenario": "accepted-ownership.json",
+      "expectations": [
+        {
+          "step": 4,
+          "participant": "lead",
+          "expected": "speak",
+          "category": "ownership_offer"
+        },
+        {
+          "step": 4,
+          "participant": "builder",
+          "expected": "pass",
+          "category": "avoid_unassigned_work"
+        },
+        {
+          "step": 4,
+          "participant": "reviewer",
+          "expected": "pass",
+          "category": "avoid_unassigned_work"
+        }
+      ]
+    },
+    {
+      "id": "unaddressed-material-blocker",
+      "split": "calibration",
+      "scenario": "unaddressed-material-blocker.json",
+      "expectations": [
+        {
+          "step": 3,
+          "participant": "reviewer",
+          "expected": "speak",
+          "category": "unaddressed_blocker"
+        },
+        {
+          "step": 3,
+          "participant": "lead",
+          "expected": "pass",
+          "category": "no_new_information"
+        },
+        {
+          "step": 3,
+          "participant": "builder",
+          "expected": "pass",
+          "category": "no_new_information"
+        }
+      ]
+    },
+    {
+      "id": "one-answer-is-enough",
+      "split": "calibration",
+      "scenario": "one-answer-is-enough.json",
+      "expectations": [
+        {
+          "step": 2,
+          "participant": "lead",
+          "expected": "optional",
+          "category": "open_question"
+        },
+        {
+          "step": 2,
+          "participant": "builder",
+          "expected": "optional",
+          "category": "open_question"
+        },
+        {
+          "step": 2,
+          "participant": "reviewer",
+          "expected": "optional",
+          "category": "open_question"
+        }
+      ],
+      "response_windows": [
+        {
+          "step": 2,
+          "min_speakers": 1,
+          "max_speakers": 1
+        }
+      ]
+    },
+    {
+      "id": "interrupted-and-paused",
+      "split": "calibration",
+      "scenario": "interrupted-and-paused.json",
+      "expectations": [
+        {
+          "step": 2,
+          "participant": "builder",
+          "expected": "cancelled",
+          "category": "interruption"
+        },
+        {
+          "step": 3,
+          "participant": "casey",
+          "expected": "speak",
+          "category": "redirected_request"
+        },
+        {
+          "step": 3,
+          "participant": "builder",
+          "expected": "pass",
+          "category": "pause_respected"
+        },
+        {
+          "step": 3,
+          "participant": "reviewer",
+          "expected": "pass",
+          "category": "pause_respected"
+        }
+      ]
+    }
+  ],
+  "participant_order": "rotate"
+}
