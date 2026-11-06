@@ -103,9 +103,13 @@ The lab is a conversation experience of its own. It does not pretend to be Slack
 
 ## Start locally
 
-Python 3.11 or newer; no runtime dependencies.
+Python 3.11 or newer and Git are required. Install the pinned official ACP SDK in
+a virtual environment before running the lab:
 
 ```sh
+python3 -m venv .venv
+. .venv/bin/activate
+python -m pip install .
 python3 -m experiment_lab --help
 python3 -m unittest discover -s tests -v
 python3 examples/fixture_demo.py --output /tmp/agent-lab-demo
@@ -113,7 +117,9 @@ python3 examples/fixture_demo.py --output /tmp/agent-lab-demo
 
 Open `/tmp/agent-lab-demo/report.html`. This demonstration uses deterministic ACP subprocess fixtures, not language models or human proxies. It tests room separation, a late participant, an interrupted private draft, a revised requirement, and a separately evaluated artifact. The nine checks apply only to that exact Python artifact.
 
-Optional installation: `python3 -m pip install .` adds the `agent-experiment-lab` command. Every command also works as `python3 -m experiment_lab` from this repository.
+On Windows, activate with `.venv\Scripts\Activate.ps1`. Installation also adds the
+`agent-experiment-lab` command. Every command works as `python -m experiment_lab`
+in the environment where its dependencies are installed.
 
 ## Connect actual agents
 
@@ -255,3 +261,9 @@ Use of Microsoft trademarks or logos in modified versions of this project must n
 Any use of third-party trademarks or logos are subject to those third-party's policies.
 
 See [harness experiments](docs/harness-experiments.md) for matched context, latency, compaction and delivery measurements.
+
+## ACP SDK integration
+
+ACP transport uses the official Python SDK pinned to upstream revision `9853d8b514d6340000bcbd01ec07808436db80cf`. This revision contains typed compaction and message identity support absent from the published 0.12.1 package; the upstream version string is still 0.12.1, so verify `direct_url.json` when auditing installation. A bounded application queue uses the SDK public observer and generated types to preserve slow observation order and surface collection failures, because SDK notification callbacks run independently and log their own exceptions. No custom protocol framing or request-ID registry remains. Reevaluate this wrapper when upgrading the SDK. Real SDK peers cover slow callbacks, replay, errors, limits and transport loss.
+
+See the [SDK-first contract](https://github.com/microsoft/amplifier-constellation/blob/main/contracts/protocol-sdk.v1-candidate.md).
