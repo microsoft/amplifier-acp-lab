@@ -1,0 +1,153 @@
+{
+  "transport": "loopback HTTP; extracted copy is served locally, not file://",
+  "server": "range",
+  "checks": [
+    {
+      "package": "good",
+      "source": "clip.mp4",
+      "canPlayType": {
+        "h264": "probably",
+        "vp9": "probably"
+      },
+      "clock_advanced": true,
+      "decoded_image_changed": true,
+      "decoded_frames": 51,
+      "caption": {
+        "readyState": 2,
+        "mode": "showing",
+        "cues": [
+          "FIXTURE CUE ONE"
+        ]
+      },
+      "caption_render_changes_pixels": true,
+      "video_pass": true,
+      "caption_pass": true,
+      "seek_pass": true,
+      "seek_seconds": 4,
+      "page_errors": []
+    },
+    {
+      "package": "good",
+      "source": "clip.webm",
+      "canPlayType": {
+        "h264": "probably",
+        "vp9": "probably"
+      },
+      "clock_advanced": true,
+      "decoded_image_changed": true,
+      "decoded_frames": 50,
+      "caption": {
+        "readyState": 2,
+        "mode": "showing",
+        "cues": [
+          "FIXTURE CUE ONE"
+        ]
+      },
+      "caption_render_changes_pixels": true,
+      "video_pass": true,
+      "caption_pass": true,
+      "seek_pass": true,
+      "seek_seconds": 4,
+      "page_errors": []
+    },
+    {
+      "package": "broken",
+      "source": "clip.mp4",
+      "canPlayType": {
+        "h264": "probably",
+        "vp9": "probably"
+      },
+      "clock_advanced": true,
+      "decoded_image_changed": true,
+      "decoded_frames": 50,
+      "caption": {
+        "readyState": 3,
+        "mode": "showing",
+        "cues": []
+      },
+      "caption_render_changes_pixels": false,
+      "video_pass": true,
+      "caption_pass": false,
+      "seek_pass": true,
+      "seek_seconds": 4,
+      "page_errors": []
+    },
+    {
+      "package": "broken",
+      "source": "clip.webm",
+      "canPlayType": {
+        "h264": "probably",
+        "vp9": "probably"
+      },
+      "clock_advanced": true,
+      "decoded_image_changed": true,
+      "decoded_frames": 50,
+      "caption": {
+        "readyState": 3,
+        "mode": "showing",
+        "cues": []
+      },
+      "caption_render_changes_pixels": false,
+      "video_pass": true,
+      "caption_pass": false,
+      "seek_pass": true,
+      "seek_seconds": 4,
+      "page_errors": []
+    },
+    {
+      "package": "extracted/good",
+      "source": "clip.mp4",
+      "canPlayType": {
+        "h264": "probably",
+        "vp9": "probably"
+      },
+      "clock_advanced": true,
+      "decoded_image_changed": true,
+      "decoded_frames": 50,
+      "caption": {
+        "readyState": 2,
+        "mode": "showing",
+        "cues": [
+          "FIXTURE CUE ONE"
+        ]
+      },
+      "caption_render_changes_pixels": true,
+      "video_pass": true,
+      "caption_pass": true,
+      "seek_pass": true,
+      "seek_seconds": 4,
+      "page_errors": []
+    },
+    {
+      "package": "extracted/good",
+      "source": "clip.webm",
+      "canPlayType": {
+        "h264": "probably",
+        "vp9": "probably"
+      },
+      "clock_advanced": true,
+      "decoded_image_changed": true,
+      "decoded_frames": 50,
+      "caption": {
+        "readyState": 2,
+        "mode": "showing",
+        "cues": [
+          "FIXTURE CUE ONE"
+        ]
+      },
+      "caption_render_changes_pixels": true,
+      "video_pass": true,
+      "caption_pass": true,
+      "seek_pass": true,
+      "seek_seconds": 4,
+      "page_errors": []
+    }
+  ],
+  "fixture_sha256": {
+    "index.html": "0a18ff9fb56179936a51f0bcfe0845bcb361779ce7f828297b8ba29177857716",
+    "captions.vtt": "0d89903d0268425babb8b57588f84ecb9e62da1ccb553d4f14ccd9def9e73316",
+    "clip.mp4": "24a6a3856d9d1cdf4bfa4a68dc2058e6d7fd8a9b12902ee57d34bbe58f6e833e",
+    "clip.webm": "e334b034c172b1d7421ac59ef41bdb5cedcc41be2f03a54041894e3469de83ea"
+  },
+  "browser": "156.0.8078.4"
+}
