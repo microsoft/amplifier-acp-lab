@@ -9,7 +9,7 @@ contributions and delivery, and compare checked outcomes across repeated trials.
 Read the [vision](docs/VISION.md) for intended value and the
 [local contracts](docs/contracts.md) for scenario execution, evidence and recovery.
 Shared meanings stay in the
-[Constellation family agreement](https://github.com/microsoft/amplifier-constellation/blob/main/contracts/family.v1-candidate.md);
+[Constellation family agreement](https://github.com/microsoft/amplifier-constellation/blob/main/contracts/composition.md);
 the [working guide](https://github.com/microsoft/amplifier-constellation/blob/main/docs/working-together.md)
 applies Converge to contributions.
 
@@ -42,14 +42,14 @@ in the environment where its dependencies are installed.
 
 | Work to do | Read |
 | --- | --- |
-| Connect actual engines and choose an independent evaluator | [Agent bindings and evaluation](docs/contracts.md#connect-actual-agents) |
-| Define participants, rooms, steps and limits | [Scenario contract](docs/contracts.md#scenario-contract) |
-| Resume interrupted runs without replaying uncertainty | [Recovery](docs/contracts.md#resume-and-ambiguous-outcomes) |
-| Compare repeated conditions and interpret evidence | [Comparison](docs/contracts.md#repeat-and-compare) and [evidence](docs/contracts.md#understand-the-evidence) |
+| Connect actual engines and choose an independent evaluator | [Agent bindings and evaluation](docs/execution-reference.md#connect-actual-agents) |
+| Define participants, rooms, steps and limits | [Scenario contract](docs/execution-reference.md#scenario-contract) |
+| Resume interrupted runs without replaying uncertainty | [Recovery](docs/execution-reference.md#resume-and-ambiguous-outcomes) |
+| Compare repeated conditions and interpret evidence | [Comparison](docs/execution-reference.md#repeat-and-compare) and [evidence](docs/execution-reference.md#understand-the-evidence) |
 | Study replies, useful silence, handoffs or attention | [Attention experiments](docs/attention-experiments.md) |
 | Study context, latency, compaction or delivery | [Harness experiments](docs/harness-experiments.md) |
-| Import Slack evidence or submit a report to an optional management client | [External evidence and reporting](docs/contracts.md#existing-slack-recordings-and-optional-fleet-integration) |
-| Change protocol integration | [SDK boundary](docs/contracts.md#acp-sdk-integration) |
+| Import Slack evidence or submit a report to an optional management client | [External evidence and reporting](docs/execution-reference.md#existing-slack-recordings-and-optional-fleet-integration) |
+| Change protocol integration | [SDK boundary](docs/execution-reference.md#acp-sdk-integration) |
 
 Select a meaningful outcome and a check that could expose failure. Keep human
 observations, model behavior, protocol checks and operator-authored expectations
