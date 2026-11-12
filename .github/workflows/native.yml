@@ -1,0 +1,56 @@
+name: Native Lab packages
+on: [push, pull_request, workflow_dispatch]
+permissions:
+  contents: read
+jobs:
+  native:
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - {os: ubuntu-24.04, target: x86_64-unknown-linux-gnu, binary: agent-experiment-lab}
+          - {os: ubuntu-24.04-arm, target: aarch64-unknown-linux-gnu, binary: agent-experiment-lab}
+          - {os: macos-15, target: aarch64-apple-darwin, binary: agent-experiment-lab}
+          - {os: macos-15-intel, target: x86_64-apple-darwin, binary: agent-experiment-lab}
+          - {os: windows-2025, target: x86_64-pc-windows-msvc, binary: agent-experiment-lab.exe}
+          - {os: windows-11-arm, target: aarch64-pc-windows-msvc, binary: agent-experiment-lab.exe}
+    runs-on: ${{ matrix.os }}
+    env:
+      CARGO_BUILD_TARGET: ${{ matrix.target }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.13'
+          architecture: ${{ runner.arch == 'ARM64' && 'arm64' || 'x64' }}
+      - uses: dtolnay/rust-toolchain@stable
+        with:
+          components: rustfmt, clippy
+          targets: ${{ matrix.target }}
+      - name: Bundle Windows C runtime
+        if: runner.os == 'Windows'
+        shell: bash
+        env:
+          NATIVE_TARGET: ${{ matrix.target }}
+        run: |
+          target_env="${NATIVE_TARGET//-/_}"
+          echo "CARGO_TARGET_${target_env^^}_RUSTFLAGS=-C target-feature=+crt-static" >> "$GITHUB_ENV"
+      - uses: Swatinem/rust-cache@v2
+        with:
+          workspaces: native
+      - run: python -m pip install .
+      - run: python -m unittest discover -s tests -v
+      - run: python scripts/vendor/python/test_support.py
+      - run: cargo fmt --manifest-path native/Cargo.toml --check
+      - run: cargo clippy --manifest-path native/Cargo.toml --locked --all-targets -- -D warnings
+      - run: cargo build --manifest-path native/Cargo.toml --release --locked
+      - name: Package private Python and official SDK
+        run: python scripts/package-native.py --binary "native/target/${{ matrix.target }}/release/${{ matrix.binary }}" --target "${{ matrix.target }}" --source "${{ github.sha }}" --cache native-inputs --output dist
+      - name: Execute actual extracted package without developer tools
+        shell: bash
+        run: python scripts/check-native-package.py dist/*.zip
+      - uses: actions/upload-artifact@v4
+        with:
+          name: lab-${{ matrix.target }}-${{ github.sha }}
+          path: dist/*
+          if-no-files-found: error

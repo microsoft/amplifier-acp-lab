@@ -15,3 +15,5 @@ private/
 *.sqlite
 *.sqlite3
 *.db
+
+native/target/
