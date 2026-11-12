@@ -18,6 +18,20 @@ reproduce another platform's timing, context or authority. Treat imported Slack
 recordings as a separate condition. Report pages provide reference access to the
 evidence; future ways of inspecting and judging it remain open to design.
 
+## Native downloads
+
+The native package includes its own Python and the pinned official ACP SDK.
+Extract the matching package and run `agent-experiment-lab` (`.exe` on Windows);
+no Python, Git, WSL or build tools are needed. Windows 11 x64 and ARM64, macOS
+Intel and Apple silicon, and Linux x64 and ARM64 have separate packages. The
+Lab remains a command-line experiment tool; it does not provision model accounts.
+
+Keep the package files together. Replace the entire extracted package to update;
+run folders remain separate, and unfinished or uncertain prompts are never
+automatically replayed. These preview packages are unsigned and not notarized.
+The [shared installation agreement](https://github.com/microsoft/amplifier-constellation/blob/main/contracts/installations.md#native-single-computer-setup)
+owns the family platform promise. Source installation below is for contributors.
+
 ## Start locally
 
 Python 3.11 or newer and Git are required. Install the pinned official ACP SDK in

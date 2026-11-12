@@ -9,7 +9,8 @@ import subprocess
 import tempfile
 import urllib.parse
 
-from .storage import digest, now, read, write
+from .platform import private_directory
+from .storage import write_bytes, digest, now, read, write
 
 FENCE = re.compile(r"(?m)^```([a-zA-Z0-9_+.-]*)[^\n]*\n(.*?)^```\s*$", re.DOTALL)
 
@@ -17,7 +18,7 @@ FENCE = re.compile(r"(?m)^```([a-zA-Z0-9_+.-]*)[^\n]*\n(.*?)^```\s*$", re.DOTALL
 def artifacts(run):
     items = []
     folder = run.path / "artifacts"
-    folder.mkdir(mode=0o700, exist_ok=True)
+    private_directory(folder, parents=False)
     for message in run.data["messages"]:
         if message["kind"] in ("operator_cue", "membership", "scripted_context"):
             continue
@@ -27,8 +28,7 @@ def artifacts(run):
             name = sha + ".txt"
             path = folder / name
             if not path.exists():
-                path.write_bytes(raw)
-                path.chmod(0o600)
+                write_bytes(path, raw)
             items.append({"id": message["id"] + ":" + str(index), "sha256": sha,
                           "path": "artifacts/" + name, "language": match[1],
                           "room": message["room"], "speaker": message["speaker"],
@@ -134,8 +134,7 @@ def report(run):
             label = " · ".join(str(item[key]) for key in ("participant", "room", "resource") if item.get(key)) or "Recorded observation"
             observation_links.append(f'<li><a href="{e(reference, quote=True)}">{e(label)}</a> · {e(item.get("classification", "recorded evidence"))}</li>')
     page += '<section><h2>Recorded observations</h2><p>Management responses are service-reported evidence. They do not establish behavioral quality.</p><ul>' + ("".join(observation_links) or '<li>No management observation references recorded.</li>') + '</ul></section>'
-    path.write_text(page)
-    path.chmod(0o600)
+    write_bytes(path, page.encode("utf-8"))
     return summary
 
 
@@ -207,11 +206,11 @@ def compare(runs, output):
                                 "interpretation": "descriptive_only", "causal_effect_established": False},
               "note": "Even matched configurations do not establish causal improvement. Record repeated runs, confounds, and actual human observations separately."}
     output = Path(output)
-    output.mkdir(mode=0o700, parents=True, exist_ok=True)
+    private_directory(output)
     write(output / "comparison.json", result)
     header = "<tr><th>Run</th><th>Experience</th><th>Contributions</th><th>Artifact checks passed</th><th>Uncertain turns</th><th>Human feedback</th></tr>"
     table = "".join(f'<tr><td>{html.escape(item["label"])}</td><td>{html.escape(item["experience"])}</td><td>{item["measurements"]["social"]["contributions"]}</td><td>{item["measurements"]["task"]["evaluator_passes"]}</td><td>{item["measurements"]["technical"]["turn_states"].get("unknown", 0) if item["measurements"]["technical"]["turn_states"] is not None else "not observed"}</td><td>{item["measurements"]["social"]["human_feedback_count"]}</td></tr>' for item in summaries)
     path = output / "report.html"
-    path.write_text(f'<!doctype html><html lang="en"><meta charset="utf-8"><meta name="viewport" content="width=device-width"><title>Experiment comparison</title><style>{STYLE}</style><h1>Experiment comparison</h1><p>{html.escape(result["note"])}</p><table>{header}{table}</table><h2>Comparability</h2><pre>{html.escape(json.dumps(result["comparability"], indent=2))}</pre><p><a href="comparison.json">Full machine-readable comparison</a></p></html>')
-    path.chmod(0o600)
+    write_bytes(path, f'<!doctype html><html lang="en"><meta charset="utf-8"><meta name="viewport" content="width=device-width"><title>Experiment comparison</title><style>{STYLE}</style><h1>Experiment comparison</h1><p>{html.escape(result["note"])}</p><table>{header}{table}</table><h2>Comparability</h2><pre>{html.escape(json.dumps(result["comparability"], indent=2))}</pre><p><a href="comparison.json">Full machine-readable comparison</a></p></html>'.encode("utf-8"))
+
     return result

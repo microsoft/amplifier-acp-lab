@@ -13,7 +13,8 @@ from .analysis import STYLE, evaluate, report
 from .attention import validate_attention
 from .engine import Engine
 from .scenario import ID, require, validate, validate_bindings
-from .storage import Run, digest, driver_identity, now, read, write
+from .platform import private_directory
+from .storage import write_bytes, Run, digest, driver_identity, now, read, write
 
 
 def validate_expectations(scenario, expectations):
@@ -68,7 +69,7 @@ def prepare(manifest_path, bindings_path, output, loader, split="held_out", repe
     selected = [case for case in frozen if split == "all" or case["split"] == split]
     require(bool(selected), "No cases in selected split")
     require(not output.exists(), "A new suite needs a new output directory")
-    output.mkdir(mode=0o700, parents=True)
+    private_directory(output, exist_ok=False)
     # Include the unexecuted split: later readers can verify that held-out cases
     # were already fixed before calibration outputs became available.
     snapshot = {"manifest": manifest, "cases": frozen, "created_at": now(), "driver": driver_identity()}
@@ -205,8 +206,7 @@ def suite_report(output):
         cases.append(f'<section><h2><a href="{e(item["run"])}/report.html">{e(item["case_id"])} · {e(item["condition_id"])}</a></h2><p>{e(item["status"])}</p><table class="decisions"><tr><th>Participant</th><th>Case</th><th>Expected</th><th>Observed</th><th>Agent’s private reason</th></tr>{lines}</table></section>')
     table_style = "th,td{min-width:6rem;overflow-wrap:normal}.decisions td:last-child{min-width:16rem;width:60%;overflow-wrap:anywhere}"
     page = f'<!doctype html><html lang="en"><meta charset="utf-8"><meta name="viewport" content="width=device-width"><title>Attention experiment</title><style>{STYLE}{table_style}</style><h1>When to help, when to stay quiet</h1><p>Frozen {e(plan["split"])} cases · actual ACP decisions · no Slack messages. A pass earns credit only when explicitly returned by the agent. Failed, cancelled, and unobserved turns are kept separate.</p><table>{header}{rows}</table><p><a href="attention-report.json">Full results and evidence references</a></p><ul>{"".join("<li>" + e(note) + "</li>" for note in result["limitations"])}</ul>{"".join(cases)}</html>'
-    (output / "report.html").write_text(page)
-    (output / "report.html").chmod(0o600)
+    write_bytes(output / "report.html", page.encode("utf-8"))
     return result
 
 

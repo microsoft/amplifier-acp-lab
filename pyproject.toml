@@ -6,7 +6,7 @@ build-backend = "setuptools.build_meta"
 license = {file = "LICENSE"}
 readme = "README.md"
 name = "agent-experiment-lab"
-version = "0.4.0"
+version = "0.4.1"
 description = "Repeatable collaboration experiments through ordinary ACP endpoints"
 requires-python = ">=3.11"
 dependencies = ["agent-client-protocol @ git+https://github.com/agentclientprotocol/python-sdk.git@9853d8b514d6340000bcbd01ec07808436db80cf"]

@@ -13,6 +13,7 @@ from acp.utils import model_to_kwargs
 from pydantic import ValidationError
 
 from . import __version__
+from .platform import ProcessJob
 
 
 class ProtocolError(RuntimeError):
@@ -55,6 +56,7 @@ class Client:
     def __init__(self, endpoint, observe):
         self.endpoint, self.observe = endpoint, observe
         self.process = None
+        self.process_job = None
         self.session = None
         self.info = None
         self.connection = None
@@ -66,7 +68,7 @@ class Client:
 
     async def start(self):
         # Explicit inheritance avoids carrying unrelated access tokens to agents.
-        names = ("PATH", "HOME", "USER", "LANG", "SYSTEMROOT", "WINDIR", "TEMP", "TMP", "SSL_CERT_FILE", "SSL_CERT_DIR", "SSH_AUTH_SOCK")
+        names = ("PATH", "HOME", "USER", "LANG", "SYSTEMROOT", "WINDIR", "USERPROFILE", "LOCALAPPDATA", "APPDATA", "TEMP", "TMP", "SSL_CERT_FILE", "SSL_CERT_DIR", "SSH_AUTH_SOCK")
         env = {name: os.environ[name] for name in names if name in os.environ}
         env.update(self.endpoint.get("env", {}))
         for name, path in self.endpoint.get("secret_env", {}).items():
@@ -76,7 +78,20 @@ class Client:
             cwd=self.endpoint.get("launch_cwd") or None, env=env,
             stdin=asyncio.subprocess.PIPE, stdout=asyncio.subprocess.PIPE,
             stderr=asyncio.subprocess.DEVNULL, limit=4 * 1024 * 1024,
-            start_new_session=os.name != "nt")
+            start_new_session=os.name != "nt", creationflags=0x4 if os.name == "nt" else 0)
+        try:
+            self.process_job = ProcessJob(self.process.pid)
+            self.process_job.resume()
+        except Exception:
+            if self.process_job:
+                self.process_job.close()
+                self.process_job = None
+            try:
+                self.process.kill()
+            except ProcessLookupError:
+                pass
+            await self.process.wait()
+            raise
         self.fatal = asyncio.get_running_loop().create_future()
         self.connection = connect_to_agent(_Callbacks(self), self.process.stdin,
                                            self.process.stdout, observers=[self._stream_event])
@@ -220,24 +235,32 @@ class Client:
             raise
 
     async def close(self):
-        if self.connection:
-            await self.connection.close()
-        if self.update_worker:
-            self.update_worker.cancel()
-            await asyncio.gather(self.update_worker, return_exceptions=True)
-        if not self.process:
-            return
-        if self.process.returncode is None:
+        try:
+            if self.connection:
+                await self.connection.close()
+        finally:
             try:
-                if os.name != "nt":
-                    os.killpg(self.process.pid, signal.SIGTERM)
-                else:
-                    self.process.terminate()
-                await asyncio.wait_for(self.process.wait(), 3)
-            except (ProcessLookupError, asyncio.TimeoutError):
-                if self.process.returncode is None:
-                    if os.name != "nt":
-                        os.killpg(self.process.pid, signal.SIGKILL)
-                    else:
-                        self.process.kill()
-                    await self.process.wait()
+                if self.update_worker:
+                    self.update_worker.cancel()
+                    await asyncio.gather(self.update_worker, return_exceptions=True)
+                if self.process and self.process.returncode is None:
+                    try:
+                        if os.name != "nt":
+                            os.killpg(self.process.pid, signal.SIGTERM)
+                        elif self.process_job:
+                            # Kill descendants before waiting for inherited pipes to close.
+                            self.process_job.close()
+                        else:
+                            self.process.terminate()
+                        await asyncio.wait_for(self.process.wait(), 3)
+                    except (ProcessLookupError, asyncio.TimeoutError):
+                        if self.process.returncode is None:
+                            if os.name != "nt":
+                                os.killpg(self.process.pid, signal.SIGKILL)
+                            else:
+                                self.process.kill()
+                            await self.process.wait()
+            finally:
+                if self.process_job:
+                    self.process_job.close()
+                    self.process_job = None

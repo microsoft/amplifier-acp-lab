@@ -5,10 +5,10 @@ import hashlib
 import json
 import os
 from pathlib import Path
-import tempfile
 import uuid
 
 from . import __version__
+from .platform import private_directory, private_create_file
 
 
 def now():
@@ -22,7 +22,7 @@ def digest(value):
 
 
 def read(path):
-    return json.loads(Path(path).read_text())
+    return json.loads(Path(path).read_text(encoding="utf-8"))
 
 
 def driver_identity():
@@ -30,20 +30,23 @@ def driver_identity():
             "source_sha256": digest({item.name: digest(item.read_bytes()) for item in sorted(Path(__file__).parent.glob('*.py'))})}
 
 
-def write(path, value):
+def write_bytes(path, data):
     path = Path(path)
-    path.parent.mkdir(mode=0o700, parents=True, exist_ok=True)
-    fd, name = tempfile.mkstemp(dir=path.parent, prefix=".checkpoint-")
+    private_directory(path.parent)
+    name = path.parent / (".checkpoint-" + uuid.uuid4().hex)
+    fd = private_create_file(name)
     try:
-        with os.fdopen(fd, "w") as stream:
-            json.dump(value, stream, indent=2, ensure_ascii=False)
-            stream.write("\n")
+        with os.fdopen(fd, "wb") as stream:
+            stream.write(data)
             stream.flush()
             os.fsync(stream.fileno())
         os.replace(name, path)
     finally:
-        if os.path.exists(name):
-            os.unlink(name)
+        name.unlink(missing_ok=True)
+
+
+def write(path, value):
+    write_bytes(path, (json.dumps(value, indent=2, ensure_ascii=False) + "\n").encode("utf-8"))
 
 
 class Run:
@@ -54,7 +57,7 @@ class Run:
     @classmethod
     def create(cls, path, scenario, bindings=None):
         path = Path(path).resolve()
-        path.mkdir(mode=0o700, parents=True, exist_ok=False)
+        private_directory(path, exist_ok=False)
         write(path / "scenario.json", scenario)
         if bindings is not None:
             write(path / "bindings.json", bindings)
@@ -83,7 +86,7 @@ class Run:
     def evidence(self, name, value):
         path = self.path / "evidence" / name
         write(path, value)
-        return {"path": str(path.relative_to(self.path)), "sha256": digest(path.read_bytes())}
+        return {"path": path.relative_to(self.path).as_posix(), "sha256": digest(path.read_bytes())}
 
     @contextlib.contextmanager
     def lock(self):
@@ -91,7 +94,7 @@ class Run:
         # conspicuous lock. Explicit unlock is preferable to duplicate prompts.
         path = self.path / ".runner.lock"
         try:
-            fd = os.open(path, os.O_WRONLY | os.O_CREAT | os.O_EXCL, 0o600)
+            fd = private_create_file(path)
         except FileExistsError as exc:
             raise ValueError("Run is locked; inspect the process, then use unlock if it has stopped") from exc
         with os.fdopen(fd, "w") as stream:
