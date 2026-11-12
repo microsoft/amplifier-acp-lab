@@ -22,7 +22,7 @@ def digest(value):
 
 
 def read(path):
-    return json.loads(Path(path).read_text())
+    return json.loads(Path(path).read_text(encoding="utf-8"))
 
 
 def driver_identity():
@@ -86,7 +86,7 @@ class Run:
     def evidence(self, name, value):
         path = self.path / "evidence" / name
         write(path, value)
-        return {"path": str(path.relative_to(self.path)), "sha256": digest(path.read_bytes())}
+        return {"path": path.relative_to(self.path).as_posix(), "sha256": digest(path.read_bytes())}
 
     @contextlib.contextmanager
     def lock(self):
