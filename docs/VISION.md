@@ -11,10 +11,19 @@ to evaluate, not proof of success.
 
 ## Make comparisons honest and useful
 
+The Lab provides reusable
+[Tool capabilities](https://github.com/microsoft/amplifier-constellation/blob/main/contracts/tool.md)
+for running and comparing experiments, with a supporting
+[Experience](https://github.com/microsoft/amplifier-constellation/blob/main/contracts/experience.md)
+for inspecting evidence. These are contributions to the five primitives, not a
+required service in every constellation.
+
 The Lab connects independently configured agents through ACP. Scenarios can study
 collaboration, execution, context and communication without requiring a particular
 engine or fleet manager. Participants, retained state, opportunities, timing and
-evaluators are experimental conditions, not hidden defaults.
+evaluators are experimental conditions, not hidden defaults. Direct engine tests
+remain useful without wrapping each engine as an Agent Instance. A scenario
+conversation is distinct from its participants' execution sessions.
 
 Protocol fixtures establish particular connection behavior. Model trials expose
 behavior under their stated conditions. Real people judge whether an experience
