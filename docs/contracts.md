@@ -4,7 +4,10 @@
 
 For scenario authors, runners, evaluators and result consumers. The promise:
 a result can be traced to the conditions, actual delivered contributions and
-checks that support it, including uncertainty and limits.
+checks that support it, including uncertainty and limits. The runner and comparison
+operations are [Tool capabilities](https://github.com/microsoft/amplifier-constellation/blob/main/contracts/tool.md);
+reports provide a supporting [Experience](https://github.com/microsoft/amplifier-constellation/blob/main/contracts/experience.md).
+The Lab does not impose its scenario driver or execution model on Agent Instances.
 
 **Example:** A new configuration appears better at following a correction.
 The comparison shows which scenario, model, retained state and evaluator changed,
@@ -48,6 +51,9 @@ Shared [composition](https://github.com/microsoft/amplifier-constellation/blob/m
 [work continuity](https://github.com/microsoft/amplifier-constellation/blob/main/contracts/work-continuity.md)
 and [engine compatibility](https://github.com/microsoft/amplifier-constellation/blob/main/contracts/engine-compatibility.md)
 remain with the umbrella; a scenario does not redefine production promises.
+The [Conversation boundary](https://github.com/microsoft/amplifier-constellation/blob/main/contracts/conversation.md)
+keeps source-owned exchanges distinct from engine sessions; direct ACP fixtures
+are not evidence of every surrounding experience or connection.
 
 **Check:** Deliver an artifact that falsely claims completion and verify that the
 independent evaluator catches it. Interrupt before and after publication, restart

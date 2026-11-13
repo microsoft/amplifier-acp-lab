@@ -13,7 +13,11 @@ Shared meanings stay in the
 the [working guide](https://github.com/microsoft/amplifier-constellation/blob/main/docs/working-together.md)
 applies Converge to contributions.
 
-The lab is an experiment experience of its own. Direct ACP attachment does not
+The runner and comparison commands are reusable
+[Tools](https://github.com/microsoft/amplifier-constellation/blob/main/contracts/tool.md);
+reports provide an experiment [Experience](https://github.com/microsoft/amplifier-constellation/blob/main/contracts/experience.md).
+The Lab is optional, and a directly tested engine need not be wrapped as an Agent
+Instance. Direct ACP attachment does not
 reproduce another platform's timing, context or authority. Treat imported Slack
 recordings as a separate condition. Report pages provide reference access to the
 evidence; future ways of inspecting and judging it remain open to design.
