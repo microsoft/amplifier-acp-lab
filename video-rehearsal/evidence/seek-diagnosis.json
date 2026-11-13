@@ -1,0 +1,368 @@
+{
+  "sha256_original": "eb40f3f61b49fe6fd00144ccdd6c2b52f1e8137d0351e05736606d6c84e3ac5f",
+  "range_probes": {
+    "simple": {
+      "status": 200,
+      "content_range": null,
+      "bytes": 253526
+    },
+    "range": {
+      "status": 206,
+      "content_range": "bytes 0-15/253526",
+      "bytes": 16
+    }
+  },
+  "checks": [
+    {
+      "transport": "simple",
+      "source": "clip.webm",
+      "repeat": 0,
+      "seek_pass": false,
+      "state": {
+        "time": 0,
+        "seeking": false,
+        "seekable": [
+          [
+            0,
+            0
+          ]
+        ]
+      },
+      "caption_before_seek": {
+        "readyState": 2,
+        "cues": [
+          "FIXTURE CUE ONE"
+        ]
+      },
+      "network": [
+        {
+          "url": "http://127.0.0.1:38799/good/index.html",
+          "status": 200,
+          "content_range": null
+        },
+        {
+          "url": "http://127.0.0.1:38799/good/clip.mp4",
+          "status": 200,
+          "content_range": null
+        },
+        {
+          "url": "http://127.0.0.1:38799/good/captions.vtt",
+          "status": 200,
+          "content_range": null
+        },
+        {
+          "url": "http://127.0.0.1:38799/good/clip.webm",
+          "status": 200,
+          "content_range": null
+        }
+      ],
+      "console_errors": []
+    },
+    {
+      "transport": "simple",
+      "source": "clip.webm",
+      "repeat": 1,
+      "seek_pass": false,
+      "state": {
+        "time": 0,
+        "seeking": false,
+        "seekable": [
+          [
+            0,
+            0
+          ]
+        ]
+      },
+      "caption_before_seek": {
+        "readyState": 2,
+        "cues": [
+          "FIXTURE CUE ONE"
+        ]
+      },
+      "network": [
+        {
+          "url": "http://127.0.0.1:38799/good/index.html",
+          "status": 200,
+          "content_range": null
+        },
+        {
+          "url": "http://127.0.0.1:38799/good/clip.mp4",
+          "status": 200,
+          "content_range": null
+        },
+        {
+          "url": "http://127.0.0.1:38799/good/captions.vtt",
+          "status": 200,
+          "content_range": null
+        },
+        {
+          "url": "http://127.0.0.1:38799/good/clip.webm",
+          "status": 200,
+          "content_range": null
+        }
+      ],
+      "console_errors": []
+    },
+    {
+      "transport": "range",
+      "source": "clip.webm",
+      "repeat": 0,
+      "seek_pass": true,
+      "state": {
+        "time": 4,
+        "seeking": false,
+        "seekable": [
+          [
+            0,
+            6.008
+          ]
+        ]
+      },
+      "caption_before_seek": {
+        "readyState": 2,
+        "cues": [
+          "FIXTURE CUE ONE"
+        ]
+      },
+      "network": [
+        {
+          "url": "http://127.0.0.1:42597/good/index.html",
+          "status": 200,
+          "content_range": null
+        },
+        {
+          "url": "http://127.0.0.1:42597/good/clip.mp4",
+          "status": 206,
+          "content_range": "bytes 0-649171/649172"
+        },
+        {
+          "url": "http://127.0.0.1:42597/good/captions.vtt",
+          "status": 200,
+          "content_range": null
+        },
+        {
+          "url": "http://127.0.0.1:42597/good/clip.webm",
+          "status": 206,
+          "content_range": "bytes 0-253525/253526"
+        }
+      ],
+      "console_errors": []
+    },
+    {
+      "transport": "range",
+      "source": "clip.webm",
+      "repeat": 1,
+      "seek_pass": true,
+      "state": {
+        "time": 4,
+        "seeking": false,
+        "seekable": [
+          [
+            0,
+            6.008
+          ]
+        ]
+      },
+      "caption_before_seek": {
+        "readyState": 2,
+        "cues": [
+          "FIXTURE CUE ONE"
+        ]
+      },
+      "network": [
+        {
+          "url": "http://127.0.0.1:42597/good/index.html",
+          "status": 200,
+          "content_range": null
+        },
+        {
+          "url": "http://127.0.0.1:42597/good/clip.mp4",
+          "status": 206,
+          "content_range": "bytes 0-649171/649172"
+        },
+        {
+          "url": "http://127.0.0.1:42597/good/captions.vtt",
+          "status": 200,
+          "content_range": null
+        },
+        {
+          "url": "http://127.0.0.1:42597/good/clip.webm",
+          "status": 206,
+          "content_range": "bytes 0-253525/253526"
+        }
+      ],
+      "console_errors": []
+    },
+    {
+      "transport": "simple",
+      "source": "front.webm",
+      "repeat": 0,
+      "seek_pass": false,
+      "state": {
+        "time": 0,
+        "seeking": false,
+        "seekable": [
+          [
+            0,
+            0
+          ]
+        ]
+      },
+      "caption_before_seek": {
+        "readyState": 2,
+        "cues": [
+          "FIXTURE CUE ONE"
+        ]
+      },
+      "network": [
+        {
+          "url": "http://127.0.0.1:38799/good/index.html",
+          "status": 200,
+          "content_range": null
+        },
+        {
+          "url": "http://127.0.0.1:38799/good/clip.mp4",
+          "status": 200,
+          "content_range": null
+        },
+        {
+          "url": "http://127.0.0.1:38799/good/captions.vtt",
+          "status": 200,
+          "content_range": null
+        },
+        {
+          "url": "http://127.0.0.1:38799/good/front.webm",
+          "status": 200,
+          "content_range": null
+        }
+      ],
+      "console_errors": []
+    },
+    {
+      "transport": "simple",
+      "source": "front.webm",
+      "repeat": 1,
+      "seek_pass": false,
+      "state": {
+        "time": 0,
+        "seeking": false,
+        "seekable": [
+          [
+            0,
+            0
+          ]
+        ]
+      },
+      "caption_before_seek": {
+        "readyState": 2,
+        "cues": [
+          "FIXTURE CUE ONE"
+        ]
+      },
+      "network": [
+        {
+          "url": "http://127.0.0.1:38799/good/index.html",
+          "status": 200,
+          "content_range": null
+        },
+        {
+          "url": "http://127.0.0.1:38799/good/clip.mp4",
+          "status": 200,
+          "content_range": null
+        },
+        {
+          "url": "http://127.0.0.1:38799/good/captions.vtt",
+          "status": 200,
+          "content_range": null
+        },
+        {
+          "url": "http://127.0.0.1:38799/good/front.webm",
+          "status": 200,
+          "content_range": null
+        }
+      ],
+      "console_errors": []
+    },
+    {
+      "transport": "file",
+      "source": "clip.webm",
+      "repeat": 0,
+      "seek_pass": true,
+      "state": {
+        "time": 4,
+        "seeking": false,
+        "seekable": [
+          [
+            0,
+            6.008
+          ]
+        ]
+      },
+      "caption_before_seek": {
+        "readyState": 3,
+        "cues": []
+      },
+      "network": [
+        {
+          "url": "file://<FIXTURE_ROOT>/good/index.html",
+          "status": 200,
+          "content_range": null
+        },
+        {
+          "url": "file://<FIXTURE_ROOT>/good/clip.mp4",
+          "status": 200,
+          "content_range": null
+        },
+        {
+          "url": "file://<FIXTURE_ROOT>/good/clip.webm",
+          "status": 200,
+          "content_range": null
+        }
+      ],
+      "console_errors": [
+        "Unsafe attempt to load URL file://<FIXTURE_ROOT>/good/captions.vtt from frame with URL file://<FIXTURE_ROOT>/good/index.html. 'file:' URLs are treated as unique security origins.\n"
+      ]
+    },
+    {
+      "transport": "file",
+      "source": "clip.webm",
+      "repeat": 1,
+      "seek_pass": true,
+      "state": {
+        "time": 4,
+        "seeking": false,
+        "seekable": [
+          [
+            0,
+            6.008
+          ]
+        ]
+      },
+      "caption_before_seek": {
+        "readyState": 3,
+        "cues": []
+      },
+      "network": [
+        {
+          "url": "file://<FIXTURE_ROOT>/good/index.html",
+          "status": 200,
+          "content_range": null
+        },
+        {
+          "url": "file://<FIXTURE_ROOT>/good/clip.mp4",
+          "status": 200,
+          "content_range": null
+        },
+        {
+          "url": "file://<FIXTURE_ROOT>/good/clip.webm",
+          "status": 200,
+          "content_range": null
+        }
+      ],
+      "console_errors": [
+        "Unsafe attempt to load URL file://<FIXTURE_ROOT>/good/captions.vtt from frame with URL file://<FIXTURE_ROOT>/good/index.html. 'file:' URLs are treated as unique security origins.\n"
+      ]
+    }
+  ],
+  "browser": "156.0.8078.4"
+}
