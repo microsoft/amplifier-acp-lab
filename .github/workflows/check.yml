@@ -16,4 +16,5 @@ jobs:
       - run: python -m pip install .
       - run: python -m unittest discover -s tests -v
       - run: python -m unittest discover -s examples/meeting_availability -p 'test_*.py' -v
+      - run: python examples/five_primitives/test_reference.py -v
       - run: python examples/fixture_demo.py --output /tmp/agent-lab-demo
