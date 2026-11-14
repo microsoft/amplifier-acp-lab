@@ -134,5 +134,5 @@ and [Workshop APIs](https://github.com/microsoft/amplifier-persona-workshop/blob
 Run the local fixture checks with:
 
 ```sh
-python3 -m unittest discover -s examples/five_primitives -p 'test_*.py'
+python3 examples/five_primitives/test_reference.py -v
 ```
