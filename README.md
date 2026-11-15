@@ -53,6 +53,27 @@ not model accounts; it illustrates the experiment workflow.
 Keep uncertain outcomes when a connection or process stops. Recovery does not
 automatically replay unfinished prompts or prove that a remote agent stopped.
 
+
+<!-- ecosystem-map:start -->
+## Where this fits
+
+An experiment and reporting experience for independently configured agent participants.
+
+Roles: Experience. Supports: Connection, Conversation, Agent Instance.
+
+![Ecosystem roles and component relationships](docs/ecosystem-map.svg)
+
+[Open the map](docs/ecosystem-map.svg) · [Product overview](https://microsoft.github.io/amplifier-constellation/projects/amplifier-acp-lab/) · [Map guide](https://github.com/microsoft/amplifier-constellation/blob/main/docs/ecosystem-maps.md)
+
+<details>
+<summary>The five shared building blocks</summary>
+
+[![Experience, Conversation, Agent Instance, Connection and Tool](https://raw.githubusercontent.com/microsoft/amplifier-constellation/main/site/assets/art/building-blocks.png)](https://microsoft.github.io/amplifier-constellation/)
+
+</details>
+
+<!-- ecosystem-map:end -->
+
 ## Contributing
 
 Invited collaborators: follow [Join the work](https://github.com/microsoft/amplifier-constellation#join-the-work)
