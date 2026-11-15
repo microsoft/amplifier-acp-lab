@@ -1,78 +1,57 @@
 # Agent Experiment Lab
 
+Compare how agents collaborate and carry work through. Define a scenario, connect
+participants, observe their contributions, and evaluate what they actually deliver
+across repeated trials. Reports keep task results, interaction observations and
+protocol behavior separate.
+
 Part of [Amplifier Constellation](https://github.com/microsoft/amplifier-constellation).
 
-A standalone lab for investigating how independent agents collaborate and carry
-work through. Define a scenario, connect the participants, observe their actual
-contributions and delivery, and compare checked outcomes across repeated trials.
+## Get started
 
-Read the [vision](docs/VISION.md) for intended value and the
-[local contracts](docs/contracts.md) for scenario execution, evidence and recovery.
-Shared meanings stay in the
-[Constellation family agreement](https://github.com/microsoft/amplifier-constellation/blob/main/contracts/composition.md);
-the [working guide](https://github.com/microsoft/amplifier-constellation/blob/main/docs/working-together.md)
-applies Converge to contributions.
+Download the matching [native release](https://github.com/microsoft/amplifier-acp-lab/releases)
+for Windows, macOS or Linux. Extract the whole package and run
+`agent-experiment-lab --help` (`agent-experiment-lab.exe` on Windows).
+The package includes Python and the ACP SDK; no developer tools are required.
+Preview packages are unsigned and not notarized.
 
-The runner and comparison commands are reusable
-[Tools](https://github.com/microsoft/amplifier-constellation/blob/main/contracts/tool.md);
-reports provide an experiment [Experience](https://github.com/microsoft/amplifier-constellation/blob/main/contracts/experience.md).
-The Lab is optional, and a directly tested engine need not be wrapped as an Agent
-Instance. Direct ACP attachment does not
-reproduce another platform's timing, context or authority. Treat imported Slack
-recordings as a separate condition. Report pages provide reference access to the
-evidence; future ways of inspecting and judging it remain open to design.
+To run an experiment:
 
-## Native downloads
+1. Choose a question and a check that could show the result is wrong.
+2. Define participants and rooms using the [scenario examples](examples/README.md).
+3. Connect your installed agents with [private agent bindings](docs/execution-reference.md#connect-actual-agents).
+4. Validate the scenario, run it, then open its generated `report.html`.
 
-The native package includes its own Python and the pinned official ACP SDK.
-Extract the matching package and run `agent-experiment-lab` (`.exe` on Windows);
-no Python, Git, WSL or build tools are needed. Windows 11 x64 and ARM64, macOS
-Intel and Apple silicon, and Linux x64 and ARM64 have separate packages. The
-Lab remains a command-line experiment tool; it does not provision model accounts.
+`validate` makes no agent connections. `run` submits actual prompts to the selected
+agents and may use their models and tools. The Lab does not provide model accounts
+or provision agents. Run folders contain private conversation content.
 
-Keep the package files together. Replace the entire extracted package to update;
-run folders remain separate, and unfinished or uncertain prompts are never
-automatically replayed. These preview packages are unsigned and not notarized.
-The [shared installation agreement](https://github.com/microsoft/amplifier-constellation/blob/main/contracts/installations.md#native-single-computer-setup)
-owns the family platform promise. Source installation below is for contributors.
+## Try the local demonstration
 
-## Start locally
-
-Python 3.11 or newer and Git are required. Install the pinned official ACP SDK in
-a virtual environment before running the lab:
+From a source checkout, use Python 3.11+ and a virtual environment:
 
 ```sh
+git clone https://github.com/microsoft/amplifier-acp-lab.git
+cd amplifier-acp-lab
 python3 -m venv .venv
 . .venv/bin/activate
 python -m pip install .
-python3 -m experiment_lab --help
-python3 -m unittest discover -s tests -v
-python3 examples/fixture_demo.py --output /tmp/agent-lab-demo
+python examples/fixture_demo.py --output ./demo-run
 ```
 
-Open `/tmp/agent-lab-demo/report.html`. This demonstration uses deterministic ACP subprocess fixtures, not language models or human proxies. It tests room separation, a late participant, an interrupted private draft, a revised requirement, and a separately evaluated artifact. The nine checks apply only to that exact Python artifact.
+On Windows, activate with `.venv\Scripts\Activate.ps1`. Open
+`demo-run/report.html`. This demonstration uses deterministic protocol fixtures,
+not model accounts; it illustrates the experiment workflow.
 
-On Windows, activate with `.venv\Scripts\Activate.ps1`. Installation also adds the
-`agent-experiment-lab` command. Every command works as `python -m experiment_lab`
-in the environment where its dependencies are installed.
+## Guides
 
-## Choose the question and boundary
+- [Run, evaluate, compare and recover experiments](docs/execution-reference.md)
+- [Attention and participation experiments](docs/attention-experiments.md)
+- [Context, latency and delivery experiments](docs/harness-experiments.md)
+- [Contributor entry](AGENTS.md)
 
-| Work to do | Read |
-| --- | --- |
-| Connect actual engines and choose an independent evaluator | [Agent bindings and evaluation](docs/execution-reference.md#connect-actual-agents) |
-| Define participants, rooms, steps and limits | [Scenario contract](docs/execution-reference.md#scenario-contract) |
-| Resume interrupted runs without replaying uncertainty | [Recovery](docs/execution-reference.md#resume-and-ambiguous-outcomes) |
-| Compare repeated conditions and interpret evidence | [Comparison](docs/execution-reference.md#repeat-and-compare) and [evidence](docs/execution-reference.md#understand-the-evidence) |
-| Study replies, useful silence, handoffs or attention | [Attention experiments](docs/attention-experiments.md) |
-| Study context, latency, compaction or delivery | [Harness experiments](docs/harness-experiments.md) |
-| Import Slack evidence or submit a report to an optional management client | [External evidence and reporting](docs/execution-reference.md#existing-slack-recordings-and-optional-fleet-integration) |
-| Change protocol integration | [SDK boundary](docs/execution-reference.md#acp-sdk-integration) |
-
-Select a meaningful outcome and a check that could expose failure. Keep human
-observations, model behavior, protocol checks and operator-authored expectations
-distinct. Use current source and the actual configured engines to establish the
-conditions for a new experiment; this entry point is not a running result ledger.
+Keep uncertain outcomes when a connection or process stops. Recovery does not
+automatically replay unfinished prompts or prove that a remote agent stopped.
 
 ## Contributing
 
