@@ -1,0 +1,113 @@
+{
+  "audience": "Builders and teams comparing agent collaboration",
+  "citations": [
+    {
+      "path": "README.md",
+      "ref": "46c61e5193aa79380a50b14427d9ffdd75f8c1da",
+      "sha256": "af55796e30fbaefca1ae73c7015eb23971b953e0bee2bb266291b70b4328e79c",
+      "url": "https://github.com/microsoft/amplifier-acp-lab/blob/46c61e5193aa79380a50b14427d9ffdd75f8c1da/README.md"
+    },
+    {
+      "path": "examples/README.md",
+      "ref": "46c61e5193aa79380a50b14427d9ffdd75f8c1da",
+      "sha256": "4ea0ac02882b5398256c2557e57088c5aaae91ce84c554bd928db362ea615abd",
+      "url": "https://github.com/microsoft/amplifier-acp-lab/blob/46c61e5193aa79380a50b14427d9ffdd75f8c1da/examples/README.md"
+    },
+    {
+      "path": "docs/execution-reference.md",
+      "ref": "46c61e5193aa79380a50b14427d9ffdd75f8c1da",
+      "sha256": "e7474988ddad8dcd71c21a5cefb3b49936aa6f114fa0b98b9dae0c142b2ca7e5",
+      "url": "https://github.com/microsoft/amplifier-acp-lab/blob/46c61e5193aa79380a50b14427d9ffdd75f8c1da/docs/execution-reference.md"
+    }
+  ],
+  "display_name": "Agent Experiment Lab",
+  "edges": [
+    {
+      "from": "self",
+      "relation": "contains",
+      "to": "scenario"
+    },
+    {
+      "from": "self",
+      "relation": "contains",
+      "to": "execution"
+    },
+    {
+      "from": "self",
+      "relation": "contains",
+      "to": "evaluation"
+    },
+    {
+      "from": "execution",
+      "relation": "uses",
+      "to": "agents"
+    },
+    {
+      "from": "execution",
+      "relation": "uses",
+      "to": "fixtures"
+    },
+    {
+      "from": "self",
+      "relation": "contains",
+      "to": "fixtures"
+    }
+  ],
+  "nodes": [
+    {
+      "id": "self",
+      "kind": "self",
+      "label": "Agent Experiment Lab",
+      "repository": "microsoft/amplifier-acp-lab"
+    },
+    {
+      "id": "scenario",
+      "kind": "internal",
+      "label": "Scenario definitions"
+    },
+    {
+      "id": "execution",
+      "kind": "internal",
+      "label": "ACP participant execution"
+    },
+    {
+      "id": "evaluation",
+      "kind": "internal",
+      "label": "Evaluation and reports"
+    },
+    {
+      "id": "agents",
+      "kind": "external",
+      "label": "Installed agent participants"
+    },
+    {
+      "id": "fixtures",
+      "kind": "internal",
+      "label": "Deterministic local fixtures"
+    }
+  ],
+  "notes": [
+    "Lab does not provision agents or model accounts.",
+    "Fixtures illustrate the workflow; fixture results are not actual-model or deployed collaboration evidence.",
+    "Experience classification is an editorial role mapping of its operator workflow and reports, not a claim of new protocol conformance."
+  ],
+  "page_kind": "developer/operator tool",
+  "purpose": "Run repeatable collaboration experiments and inspect what the agents actually deliver.",
+  "ref": "46c61e5193aa79380a50b14427d9ffdd75f8c1da",
+  "repository": "microsoft/amplifier-acp-lab",
+  "roles": [
+    "Experience"
+  ],
+  "start_cta": {
+    "basis": "Existing approved README route; target release assets/availability not freshly audited in this plan.",
+    "label": "Try the local demonstration",
+    "url": "https://github.com/microsoft/amplifier-acp-lab#try-the-local-demonstration"
+  },
+  "summary": "An experiment and reporting experience for independently configured agent participants.",
+  "supports_roles": [
+    "Connection",
+    "Conversation",
+    "Agent Instance"
+  ],
+  "visibility": "public"
+}
